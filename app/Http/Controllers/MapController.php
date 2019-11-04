@@ -38,11 +38,19 @@ class MapController extends Controller
             return redirect()->route('gempa');
         }
 
-        public function delete($id)
+        public function delete(Request $request)
         {   
-            $dempa = DB::table('gis_maps')->where('id',$id)->delete();
-            // passing data gempa yang didapat ke view edit.blade.php
-            return redirect()->route('gempa');
+            if($request->id!=null){
+                $gempa = DB::table('gis_maps')->where('id',$request->id)->delete();
+
+                return redirect()->route('gempa');
+            }
+            else{
+                foreach($request->input('options') as $o){
+                    $gempa = DB::table('gis_maps')->where('id',$o)->delete();
+                }
+                return redirect()->route('gempa');
+            }
         }
 
         public function getGempa(){

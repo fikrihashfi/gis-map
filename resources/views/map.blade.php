@@ -35,9 +35,10 @@
     </head>
     <body style="background-color:white;">
         <div style="margin:0; display:flex; justify-content:center; align-content:center;">
-            <h2>GIS GEMPA BUMI</h2>
-        </div>      
-        <div style="display:flex; flex-direction:column;">
+            <h2 id="title">GIS GEMPA BUMI</h2>
+        </div>     
+        <h5 id="loadingMap" style="text-align:center">loading...</h5>
+        <div id="containerMap" style="display:flex; flex-direction:column;">
             <div id="map" style="align-self:center; background-color:white; width:80%; height:550px; border-width:1px; border-color:black; border-style:solid">
 
             </div>
@@ -107,6 +108,7 @@
             function loadGempa(){
                 markersLayer.clearLayers();
                 getJSONGempa().then(function (responses){
+                    // console.log(responses);
                         $.each(responses, function (i, val) {
                             let lat = val.lat;
                             let lng = val.lng;
@@ -116,7 +118,7 @@
                             let video_link = val.Video_Link;
                             $.get("https://nominatim.openstreetmap.org/search?format=json&q="+lat+", "+lng
                             ,function(data, status){
-                                console.log(data);
+                                // console.log(data);
                                 window.scroll(0, 0);
                                 if(data[0]!=null){
                                     var marker = new L.Marker(new L.latLng([lat, lng]))
@@ -131,59 +133,16 @@
                                 }
                                 markersLayer.addLayer(marker);
                                 markersLayer.addTo(map);
-                                marker.openPopup();
+                                // marker.openPopup();
                         });
+                        // console.log(i)
+                        if(i==responses.length-1){
+                            $('#loadingMap').remove();
+                        }
                     });     
                 })
-             
             }
 
 
-    function lokasiGempa(lat=null, lng=null, kedalaman=null, magnitude=null, audio_link=null, video_link=null){
-        if(lat!=null&&lng!=null){
-            $.get("https://nominatim.openstreetmap.org/search?format=json&q="+lat+", "+lng
-            ,function(data, status){
-                console.log(data);
-                window.scroll(0, 0);
-                markersLayer.clearLayers();
-                if(data[0]!=null){
-                    var marker = new L.Marker(new L.latLng([lat, lng]))
-                    .bindPopup('Nama Daerah :' + data[0].display_name+ '. gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                    'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
-                    '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
-                    '<iframe width="100%" height="345" src="'+video_link+'" allowfullscreen></iframe>');
-                }
-                else{
-                    var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Nama Daerah : Tidak diketahui. '+ 'gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                    'dengan kekuatan gempa '+magnitude + ' SR');
-                }
-                markersLayer.addLayer(marker);
-                markersLayer.addTo(map);
-                marker.openPopup();
-            });
-        }
-        else{
-        $.get("https://nominatim.openstreetmap.org/search?format=json&q="+document.getElementById('search').value
-            ,function(data, status){
-                console.log(data);
-                window.scroll(0, 0);
-                markersLayer.clearLayers();
-                var position = document.getElementById('search').value;
-                var hasil = position.split(", ");
-                if(data[0]!=null){
-                    var marker = new L.Marker(new L.latLng([hasil[0], hasil[1]])).bindPopup('Nama Daerah :' + data[0].display_name + '. gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                    'dengan kekuatan gempa '+magnitude+ ' SR');
-                }
-                else{
-                    var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Nama Daerah : Tidak diketahui. '+ 'gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                    'dengan kekuatan gempa '+magnitude+ ' SR');
-                }
-                
-                markersLayer.addLayer(marker);
-                markersLayer.addTo(map);
-                marker.openPopup();
-            });
-        }
-    }
 
 </script>

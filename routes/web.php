@@ -29,7 +29,7 @@ Route::get('/gempa', 'HomeController@index')->name('gempa');
 
 Route::post('/map/add', 'MapController@add')->name('add.data');
 
-Route::get('/map/delete/{id}','MapController@delete');
+Route::post('/map/delete','MapController@delete');
 
 Route::post('/map/edit','MapController@edit');
 

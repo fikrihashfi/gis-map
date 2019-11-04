@@ -225,7 +225,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-14">
+        <div class="col">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -237,27 +237,28 @@
                     @endif
                     <h3 style="text-align:center;">Data Gempa</h3>
 
-                      <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2>Manage <b>Gempa</b></h2>
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="#addGempaModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Data Gempa</span></a>
-                                <!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 -->
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h2>Manage <b>Gempa</b></h2>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="#addGempaModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Data Gempa</span></a>
+                                    <a href="#deleteGempaModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <div class="table-responsive">    
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <!-- <th>
+                                <th>
                                     <span class="custom-checkbox">
                                         <input type="checkbox" id="selectAll">
                                         <label for="selectAll"></label>
                                     </span>
-                                </th> -->
+                                </th>
                                 <th>magnitude</th>
                                 <th>audio link</th>
                                 <th>video link</th>
@@ -270,26 +271,27 @@
                         <tbody>
                         @foreach($gempa as $g)
                             <tr>
-                                <!-- <td>
+                                <td>
                                     <span class="custom-checkbox">
-                                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                        <input type="checkbox" name="options[]" value="{{$g->id}}">
                                         <label for="checkbox1"></label>
                                     </span>
-                                </td> -->
-                                <td>{{ $g->Magnitude }}</td>
-                                <td>{{ $g->Audio_Link }}</td>
-                                <td>{{ $g->Video_Link }}</td>
-                                <td>{{ $g->Kedalaman }}</td>
-                                <td>{{ $g->Lintang }}</td>
-                                <td>{{ $g->Bujur }}</td>
+                                </td>
+                                <td style="max-width:100px">{{ $g->Magnitude }}</td>
+                                <td style="max-width:200px" >{{ $g->Audio_Link }}</td>
+                                <td style="max-width:200px">{{ $g->Video_Link }}</td>
+                                <td style="max-width:100px">{{ $g->Kedalaman }}</td>
+                                <td style="max-width:150px">{{ $g->Lintang }}</td>
+                                <td style="max-width:150px">{{ $g->Bujur }}</td>
                                 <td>
                                     <a href="#editGempaModal{{$g->id}}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="#deleteGempaModal{{$g->id}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                             </tr>
-                        @endforeach          
-                        </tbody>
+                        @endforeach      
+                        </tbody>   
                     </table>
+                    </div>
                     <div class="clearfix">
                         @if ($gempa->lastpage()<2)
                         <div class="hint-text">Showing <b>{{ $gempa->total() }}</b> out of <b>{{ $gempa->total() }}</b> entries</div>
@@ -426,14 +428,16 @@
             <div id="deleteGempaModal{{$g->id}}" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="map/delete/{{$g->id}}" method="get">
+                        <form action="map/delete" method="post">
                             <div class="modal-header">						
                                 <h4 class="modal-title">Delete Data Gempa</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">					
-                                <p>Are you sure you want to delete these Records?</p>
+                                <p>Are you sure you want to delete these Record?</p>
                                 <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                {{ csrf_field() }}
+                                <input type="text" class="form-control" value="{{$g->id}}" name="id" required="required" placeholder="ex: 1 2 3" hidden />
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -444,23 +448,50 @@
                 </div>
             </div>
             @endforeach
+
+            <div id="deleteGempaModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- <form action="map/delete" method="post"> -->
+                            <div class="modal-header">						
+                                <h4 class="modal-title">Delete Data Gempa</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">					
+                                <p>Are you sure you want to delete these Record?</p>
+                                <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                <meta name="csrf-token" content="{{ csrf_token() }}">
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" name="btnAll" id="btnAll" class="btn btn-danger" value="Delete">
+                            </div>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </div>
+
+
             </div>
         </div>
     </div>
 </div>
 @endsection
 
-<!-- <script type="text/javascript">
-$(document).ready(function(){
+
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',function(){
 	// Activate tooltip
 	$('[data-toggle="tooltip"]').tooltip();
 	
 	// Select/Deselect checkboxes
 	var checkbox = $('table tbody input[type="checkbox"]');
+    var options = [];
 	$("#selectAll").click(function(){
 		if(this.checked){
 			checkbox.each(function(){
-				this.checked = true;                        
+				this.checked = true;                    
 			});
 		} else{
 			checkbox.each(function(){
@@ -473,5 +504,29 @@ $(document).ready(function(){
 			$("#selectAll").prop("checked", false);
 		}
 	});
+
+    $("#btnAll").click(function(){  
+        options = [];
+        checkbox.each(function(){
+            if(this.checked==true){
+                options.push(this.value);    
+            }
+        });
+        console.log(options);
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $('#send_form').html('Sending..');
+      $.ajax({
+        url: 'map/delete' ,
+        type: "POST",
+        data: {'options[]':options},
+        success: function( response ) {
+            window.location = "{{ route('gempa')}}";
+        }
+      });
+    })
 });
-</script> -->
+</script>
