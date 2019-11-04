@@ -43,12 +43,14 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <select class="form-control" id="opsi1" name="opsi1">
+                            <option value="null">--Semua Pilihan--</option>
                             <option value="kedalaman">Kedalaman</option>
                             <option value="kekuatan">Kekuatan Gempa</option>
                         </select>
                     </div>
                     <div class="col">
                         <select class="form-control" id="opsi2" name="opsi2">
+                            <option value="null">--Semua Angka--</option>
                             <option value="1">< 5</option>
                             <option value="2">> 5</option>
                             <option value="3">> 10</option>
@@ -143,117 +145,86 @@
                             let audio_link = val.Audio_Link;
                             let video_link = val.Video_Link;
                             if(opsi1.value!=null && opsi2!=null){
-                                if(opsi2==1){
-                                    if(opsi1.value<5){
-                                        $.ajax({
-                                            url: 'https://nominatim.openstreetmap.org/search?format=json&q='+lat+", "+lng,
-                                            type: 'GET',
-                                            success: function(data){ 
-                                                if(data[0]!=null){
-                                                var marker = new L.Marker(new L.latLng([lat, lng]))
-                                                .bindPopup('Nama Daerah :' + data[0].display_name+ '. gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
-                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
-                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
-                                                }
-                                                else{
-                                                    var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Nama Daerah : Tidak diketahui. '+ 'gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                    'dengan kekuatan gempa '+magnitude + ' SR');
-                                                }
-                                                markersLayer.addLayer(marker);
-                                            },
-                                            error: function(xhr, status, error) {
-                                                var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                    'dengan kekuatan gempa '+magnitude + ' SR');
-                                                    markersLayer.addLayer(marker);
-                                            }
-                                        });
+                                if(opsi1.value=="kedalaman"){
+                                    if(opsi2==1){
+                                        if(kedalaman<5){
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                                        markersLayer.addLayer(marker);
+                                        }
+                                    }
+                                    else if(opsi2==2){
+                                        if(kedalaman>5){
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                                        markersLayer.addLayer(marker);
+                                        }
+                                    }
+                                    else if(opsi2==3){
+                                        if(kedalaman>10){
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                                        markersLayer.addLayer(marker);
+                                        }
                                     }
                                 }
-                                else if(opsi2==2){
-                                    if(opsi1.value>5){
-                                    $.ajax({
-                                        url: 'https://nominatim.openstreetmap.org/search?format=json&q='+lat+", "+lng,
-                                        type: 'GET',
-                                        success: function(data){ 
-                                            if(data[0]!=null){
-                                            var marker = new L.Marker(new L.latLng([lat, lng]))
-                                            .bindPopup('Nama Daerah :' + data[0].display_name+ '. gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                            'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
-                                            '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
-                                            '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
-                                            }
-                                            else{
-                                                var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Nama Daerah : Tidak diketahui. '+ 'gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                'dengan kekuatan gempa '+magnitude + ' SR');
-                                            }
-                                            markersLayer.addLayer(marker);
-                                        },
-                                        error: function(xhr, status, error) {
+                                else if(opsi1.value=="kekuatan"){
+                                    if(opsi2==1){
+                                        if(magnitude<5){
                                             var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                'dengan kekuatan gempa '+magnitude + ' SR');
-                                                markersLayer.addLayer(marker);
+                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                                        markersLayer.addLayer(marker);
                                         }
-                                    });
-                                }
-                                }
-                                else{
-                                    if(opsi1.value>10){
-                                    $.ajax({
-                                        url: 'https://nominatim.openstreetmap.org/search?format=json&q='+lat+", "+lng,
-                                        type: 'GET',
-                                        success: function(data){ 
-                                            if(data[0]!=null){
-                                            var marker = new L.Marker(new L.latLng([lat, lng]))
-                                            .bindPopup('Nama Daerah :' + data[0].display_name+ '. gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                            'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
-                                            '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
-                                            '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
-                                            }
-                                            else{
-                                                var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Nama Daerah : Tidak diketahui. '+ 'gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                'dengan kekuatan gempa '+magnitude + ' SR');
-                                            }
-                                            markersLayer.addLayer(marker);
-                                        },
-                                        error: function(xhr, status, error) {
+                                    }
+                                    else if(opsi2==2){
+                                        if(magnitude>5){
                                             var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                'dengan kekuatan gempa '+magnitude + ' SR');
-                                                markersLayer.addLayer(marker);
+                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                                        markersLayer.addLayer(marker);
                                         }
-                                    });
-                                }
+                                    }
+                                    else if(opsi2==3){
+                                        if(magnitude>10){
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                                        markersLayer.addLayer(marker);
+                                        }
+                                    }
                                 }
                             }
                             else{
-                                $.ajax({
-                                            url: 'https://nominatim.openstreetmap.org/search?format=json&q='+lat+", "+lng,
-                                            type: 'GET',
-                                            success: function(data){ 
-                                                if(data[0]!=null){
-                                                var marker = new L.Marker(new L.latLng([lat, lng]))
-                                                .bindPopup('Nama Daerah :' + data[0].display_name+ '. gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
-                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
-                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
-                                                }
-                                                else{
-                                                    var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Nama Daerah : Tidak diketahui. '+ 'gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                    'dengan kekuatan gempa '+magnitude + ' SR');
-                                                }
-                                                markersLayer.addLayer(marker);
-                                            },
-                                            error: function(xhr, status, error) {
-                                                var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
                                                     'dengan kekuatan gempa '+magnitude + ' SR');
                                                     markersLayer.addLayer(marker);
-                                            }
-                                        });
                             }
                             markersLayer.addTo(map);
                     
                     });     
                 })
+
+                    //    $.ajax({
+                    //                         url: 'https://nominatim.openstreetmap.org/search?format=json&q='+lat+", "+lng,
+                    //                         type: 'GET',
+                    //                         success: function(data){ 
+                    //                             if(data[0]!=null){
+                    //                             var marker = new L.Marker(new L.latLng([lat, lng]))
+                    //                             .bindPopup('Nama Daerah :' + data[0].display_name+ '. gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                    //                             'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                    //                             '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                    //                             '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
+                    //                             }
+                    //                             else{
+                    //                                 var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Nama Daerah : Tidak diketahui. '+ 'gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                    //                                 'dengan kekuatan gempa '+magnitude + ' SR');
+                    //                             }
+                    //                             markersLayer.addLayer(marker);
+                    //                         },
+                    //                         error: function(xhr, status, error) {
+                    //                             var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                    //                                 'dengan kekuatan gempa '+magnitude + ' SR');
+                    //                                 markersLayer.addLayer(marker);
+                    //                         }
+                    //                     });
              
             }
 
