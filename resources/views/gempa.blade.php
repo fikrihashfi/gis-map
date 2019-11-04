@@ -290,18 +290,30 @@
                         @endforeach          
                         </tbody>
                     </table>
-                    <!-- <div class="clearfix">
-                        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a href="#">Previous</a></li>
-                            <li class="page-item"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item"><a href="#" class="page-link">5</a></li>
-                            <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                        </ul>
-                    </div> -->
+                    <div class="clearfix">
+                        @if ($gempa->lastpage()<2)
+                        <div class="hint-text">Showing <b>{{ $gempa->total() }}</b> out of <b>{{ $gempa->total() }}</b> entries</div>
+                        @elseif ($gempa->lastPage() > 1)
+                            @if ($gempa->currentPage() != $gempa->lastPage())
+                            <div class="hint-text">Showing <b>{{ $gempa->perPage()*($gempa->currentPage()-1)+1 }}</b>-<b>{{ $gempa->perPage()*$gempa->currentPage() }}</b> out of <b>{{ $gempa->total() }}</b> entries</div>
+                            @elseif(($gempa->currentPage() == $gempa->lastPage()))
+                            <div class="hint-text">Showing <b>{{ $gempa->perPage()*($gempa->currentPage()-1)+1 }}</b>-<b>{{ $gempa->total() }}</b> out of <b>{{ $gempa->total() }}</b> entries</div>
+                            @endif
+                            <ul class="pagination">
+                                <li class="{{ ($gempa->currentPage() == 1) ? ' disabled' : '' }}">
+                                    <a href="{{ $gempa->url(1) }}">Previous</a>
+                                </li>
+                                @for ($i = 1; $i <= $gempa->lastPage(); $i++)
+                                    <li class="{{ ($gempa->currentPage() == $i) ? ' active' : '' }}">
+                                        <a href="{{ $gempa->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+                                <li class="{{ ($gempa->currentPage() == $gempa->lastPage()) ? ' disabled' : '' }}">
+                                    <a href="{{ $gempa->url($gempa->currentPage()+1) }}" >Next</a>
+                                </li>
+                            </ul>
+                        @endif
+                    </div>
                 </div>
             </div>
             <!-- Edit Modal HTML -->

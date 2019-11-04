@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $gempa = DB::table('gis_maps')->get();
+        $gempa = DB::table('gis_maps')->paginate(10);
 
         // mengirim data gempa ke view index
         return view('gempa',['gempa' => $gempa]);
