@@ -314,7 +314,9 @@
         
         if($("#rawan_banjir").is(":checked")){
             map.addLayer(rawan_banjir);
-            marker = new L.Marker(new L.latLng([-7.548038, 110.787964]), {icon: messageIcon}).bindPopup('Rawan Banjir');
+            marker = new L.Marker(new L.latLng([-7.548038, 110.787964]), {icon: messageIcon}).bindPopup('Banjir adalah peristiwa yang terjadi ketika aliran air yang berlebihan merendam daratan. Pengarahan banjir Uni Eropa mengartikan banjir sebagai perendaman sementara oleh air pada daratan yang biasanya tidak terendam air. Dalam arti "air mengalir", kata ini juga dapat berarti masuknya pasang laut.'+
+                                                '<audio controls><source src="{{asset("audio/banjir.mp3")}}" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="https://www.youtube.com/embed/SCLNqhLTTo0" allowfullscreen></iframe>');
                                                     map.addLayer(marker);
         }
         else {
