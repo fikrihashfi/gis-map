@@ -38,7 +38,7 @@
         <div style="margin:0; display:flex; justify-content:center; align-content:center;">
             <h2>GIS GEMPA BUMI</h2>
         </div>      
-        <!-- <div style="display:flex; flex-direction:row; align-content:center; justify-content:center; margin:10px">
+        <div style="display:flex; flex-direction:row; align-content:center; justify-content:center; margin:10px">
             <div style="width:300px">
                 <div class="form-row">
                     <div class="col-md-6">
@@ -60,60 +60,11 @@
             </div>
 
             <button id="searchbtn" style="margin-left:10px" class="btn btn-primary">Search</button>
-        </div> -->
-        <div style="display:flex; flex-direction:row    ;">
-            <div id="option-container" style="padding:20px;border-style: solid;border-width:1px;border-radius:5px;border-color:black;margin-right:20px;margin-left:20px;width:20%;height:600px;">
-                <h4 style="text-decoration: underline;">Option Surakarta:</h4><br>
-                <form>
-                    <div class="checkbox">
-                        <label><input id="Surakarta" type="checkbox" value="" checked disabled>Surakarta</label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="rawan_banjir" type="checkbox" value="" >Rawan Bajir </label>
-                    </div>    
-                    <div class="checkbox">
-                        <label><input id="Kec_Jebres" type="checkbox" value="" checked>Kec Jebres</label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="Kec_Laweyan" type="checkbox" value="" checked>Kec Laweyan </label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="Kec_Banjarsari" type="checkbox" value="" checked>Kec Banjarsari </label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="Kec_Pasar" type="checkbox" value="" checked>Kec Pasar Kliwon</label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="Kec_Serengan" type="checkbox" value="" checked>Kec Serengan </label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="Jalan_Lokal" type="checkbox" value="" checked>Jalan Lokal </label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="Jalan_Kereta_Api" type="checkbox" value="" checked>Jalan Kereta_Api </label>
-                    </div>        
-                    <div class="checkbox">
-                        <label><input id="Sungai" type="checkbox" value="" checked>Sungai</label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="Jalan_Arteri" type="checkbox" value="" checked>Jalan Arteri </label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="sekolahan" type="checkbox" value="" checked>sekolahan </label>
-                    </div>
-                    <div class="checkbox disabled">
-                        <label><input id="Kantor_Pemerintah" type="checkbox" value="" checked>Kantor Pemerintah </label>
-                    </div>            
-                    <div class="checkbox disabled">
-                        <label><input id="Perguruan_Tinggi" type="checkbox" value="" checked>Perguruan Tinggi </label>
-                    </div>   
-        
-                </form>
-            </div>
-            <div id="map" style="margin-right:10px;align-self:center; background-color:white; width:80%; height:600px; border-width:1px; border-color:black; border-style:solid">
+        </div>
+        <div style="display:flex; flex-direction:column;">
+            <div id="map" style="align-self:center; background-color:white; width:80%; height:550px; border-width:1px; border-color:black; border-style:solid">
 
             </div>
-
         </div>
    
     </body>
@@ -133,7 +84,6 @@
         var root = '{{ url("/") }}';
         var apiRoot = root + '/api/feature';
         var polygon;
-        var surakarta;
 
         $('#searchbtn').click(function(){
             console.log('click');
@@ -166,7 +116,7 @@
                     // getRadius();
                     onMapClick(latlng);
                 })
-            map.addControl(searchMap);
+            // map.addControl(searchMap);
             map.on('click', onMapClick);
             // loadGempa();
             // var states = [{
@@ -209,11 +159,15 @@
                         })
              }).then(()=>{
                 // console.log(data);
-                polygonSurakarta = L.polygon(dataSurakarta);
+                polygonSurakarta = L.polygon(dataSurakarta).addTo(map);
                 map.fitBounds(polygonSurakarta.getBounds());
+                map.dragging.disable();
+                map.touchZoom.disable();
+                map.doubleClickZoom.disable();
+                map.scrollWheelZoom.disable();
 
                                 // loadGempa();
-                loadSurakarta(polygonSurakarta.getBounds());
+                loadSurakarta();
              });
          
           
@@ -236,223 +190,26 @@
                 // // ==> true
         }
 
-        function loadSurakarta(bounds){
-            console.log(bounds);
-            map.createPane('imagebg');
-            map.getPane('imagebg').style.zIndex = 650;
-            
-            Surakarta = new L.ImageOverlay('{{asset("surakarta/assets/Surakarta.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            rawan_banjir = new L.ImageOverlay('{{asset("surakarta/assets/Kec_Laweyan.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Kec_Jebres = new L.ImageOverlay('{{asset("surakarta/assets/Kec_Jebres.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Kec_Laweyan = new L.ImageOverlay('{{asset("surakarta/assets/Kec_Laweyan.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Kec_Banjarsari = new L.ImageOverlay('{{asset("surakarta/assets/Kec_Banjarsari.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Kec_Pasar_Kliwon = new L.ImageOverlay('{{asset("surakarta/assets/Kec_Pasar Kliwon.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Kec_Serengan = new L.ImageOverlay('{{asset("surakarta/assets/Kec_Serengan.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Jalan_Lokal = new L.ImageOverlay('{{asset("surakarta/assets/Jalan_Lokal.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Jalan_Kereta_Api = new L.ImageOverlay('{{asset("surakarta/assets/Jalan_Kereta_Api.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Sungai = new L.ImageOverlay('{{asset("surakarta/assets/Sungai.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Jalan_Arteri = new L.ImageOverlay('{{asset("surakarta/assets/Jalan_Arteri.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            sekolahan = new L.ImageOverlay('{{asset("surakarta/assets/sekolahan.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Kantor_Pemerintah = new L.ImageOverlay('{{asset("surakarta/assets/Kantor_Pemerintah.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            Perguruan_Tinggi = new L.ImageOverlay('{{asset("surakarta/assets/Perguruan_Tinggi.svg")}}', bounds, {
-                pane: 'imagebg'
-            });
-            map.addLayer(Surakarta);
-            map.addLayer(Kec_Jebres);
+        function loadSurakarta(){
+            $("#map").append("<div style='background-color:blue;width:200px;'></div>");
 
-            map.addLayer(Kec_Laweyan);
-            map.addLayer(Kec_Banjarsari);
-            map.addLayer(Kec_Pasar_Kliwon);
-            map.addLayer(Kec_Serengan);
-            map.addLayer(Jalan_Lokal);
-            map.addLayer(Jalan_Kereta_Api);
-            map.addLayer(Sungai);
-            map.addLayer(Jalan_Arteri);
-            map.addLayer(sekolahan);
-            map.addLayer(Kantor_Pemerintah);
-            map.addLayer(Perguruan_Tinggi);
         }
-
-        $(document).ready(function(){
-    console.log($("#Kec_Jebres").val()? "checked" : "not");
-    $("#Surakarta").click(function(){
-        
-        if($("#Surakarta").is(":checked")){
-            map.addLayer(Surakarta);
-        }
-        else {
-            map.removeLayer(Surakarta);
-        }
-    })
-    $("#rawan_banjir").click(function(){
-        
-        if($("#rawan_banjir").is(":checked")){
-            map.addLayer(rawan_banjir);
-            marker = new L.Marker(new L.latLng([-7.548038, 110.787964]), {icon: messageIcon}).bindPopup('Rawan Banjir');
-                                                    map.addLayer(marker);
-        }
-        else {
-            map.removeLayer(rawan_banjir);
-            map.removeLayer(marker);
-        }
-    })
-    $("#Kec_Jebres").click(function(){
-        
-        if($("#Kec_Jebres").is(":checked")){
-            map.addLayer(Kec_Jebres);
-        }
-        else {
-            map.removeLayer(Kec_Jebres);
-        }
-    })
-
-       $("#Kec_Laweyan").click(function(){
-        
-        if($("#Kec_Laweyan").is(":checked")){
-            map.addLayer(Kec_Laweyan);
-        }
-        else {
-            map.removeLayer(Kec_Laweyan);
-        }
-    })
-    
-    $("#Kec_Banjarsari").click(function(){
-        
-        if($("#Kec_Banjarsari").is(":checked")){
-            map.addLayer(Kec_Banjarsari);
-        }
-        else {
-            map.removeLayer(Kec_Banjarsari);
-        }
-    })
-
-       $("#Kec_Pasar").click(function(){
-        
-        if($("#Kec_Pasar").is(":checked")){
-            map.addLayer(Kec_Pasar_Kliwon);
-        }
-        else {
-            map.removeLayer(Kec_Pasar_Kliwon);
-        }
-    })
-
-       $("#Kec_Serengan").click(function(){
-        
-        if($("#Kec_Serengan").is(":checked")){
-            map.addLayer(Kec_Serengan);
-        }
-        else {
-            map.removeLayer(Kec_Serengan);
-        }
-    })
-
-       $("#Jalan_Lokal").click(function(){
-        
-        if($("#Jalan_Lokal").is(":checked")){
-            map.addLayer(Jalan_Lokal);
-        }
-        else {
-            map.removeLayer(Jalan_Lokal);
-        }
-    })
-
-       $("#Jalan_Kereta_Api").click(function(){
-        
-        if($("#Jalan_Kereta_Api").is(":checked")){
-            map.addLayer(Jalan_Kereta_Api);
-        }
-        else {
-            map.removeLayer(Jalan_Kereta_Api);
-        }
-    })
-
-       $("#Sungai").click(function(){
-        
-        if($("#Sungai").is(":checked")){
-            map.addLayer(Sungai);
-        }
-        else {
-            map.removeLayer(Sungai);
-        }
-    })
-
-       $("#Jalan_Arteri").click(function(){
-        
-        if($("#Jalan_Arteri").is(":checked")){
-            map.addLayer(Jalan_Arteri);
-        }
-        else {
-            map.removeLayer(Jalan_Arteri);
-        }
-    })
-
-       $("#sekolahan").click(function(){
-        
-        if($("#sekolahan").is(":checked")){
-            map.addLayer(sekolahan);
-        }
-        else {
-            map.removeLayer(sekolahan);
-        }
-    })
-
-       $("#Kantor_Pemerintah").click(function(){
-        
-        if($("#Kantor_Pemerintah").is(":checked")){
-            map.addLayer(Kantor_Pemerintah);
-        }
-        else {
-            map.removeLayer(Kantor_Pemerintah);
-        }
-    })
-
-       $("#Perguruan_Tinggi").click(function(){
-        
-        if($("#Perguruan_Tinggi").is(":checked")){
-            map.addLayer(Perguruan_Tinggi);
-        }
-        else {
-            map.removeLayer(Perguruan_Tinggi);
-        }
-    })
-
-})
-
 
         function onMapClick(e) {
- 
+              if(polygon.contains(e.latlng)){
+                popup
+                .setLatLng(e.latlng)
+                .setContent("location: " + e.latlng.toString()+ ", jawa barat")
+                .openOn(map);
+                map.setView(e.latlng);
+              }
+              else{
                 popup
                 .setLatLng(e.latlng)
                 .setContent("location: " + e.latlng.toString())
                 .openOn(map);
                 map.setView(e.latlng);
-              
+              }
             // document.getElementById('locLattitude').value =e.latlng.lat;
             // document.getElementById('locLongitude').value =e.latlng.lng;
         }
@@ -491,15 +248,6 @@
                         markersLayer.addTo(map);
                 })
         }
-
-                var messageIcon = new L.Icon({
-                            iconUrl: '{{asset("Surakarta/assets/message.png")}}',
-                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                            iconSize: [25, 41],
-                            iconAnchor: [12, 41],
-                            popupAnchor: [1, -34],
-                            shadowSize: [41, 41]
-                            });
 
         var redIcon = new L.Icon({
                             iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
