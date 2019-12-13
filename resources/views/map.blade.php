@@ -274,7 +274,7 @@
             Jalan_Arteri = new L.ImageOverlay('{{asset("surakarta/assets/Jalan_Arteri.svg")}}', bounds, {
                 pane: 'imagebg'
             });
-            sekolahan = new L.ImageOverlay('{{asset("surakarta/assets/sekolahan.svg")}}', bounds, {
+            sekolahan = new L.ImageOverlay('{{asset("surakarta/assets/Sekolahan.svg")}}', bounds, {
                 pane: 'imagebg'
             });
             Kantor_Pemerintah = new L.ImageOverlay('{{asset("surakarta/assets/Kantor_Pemerintah.svg")}}', bounds, {
@@ -492,8 +492,8 @@
                 })
         }
 
-                var messageIcon = new L.Icon({
-                            iconUrl: '{{asset("Surakarta/assets/message.png")}}',
+        var messageIcon = new L.Icon({
+                            iconUrl: '{{asset("surakarta/assets/message.png")}}',
                             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
                             iconSize: [25, 41],
                             iconAnchor: [12, 41],
