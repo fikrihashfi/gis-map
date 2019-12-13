@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Peta Surakarta</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div style="margin: 10px 10px 10px 550px;">
+        <img id="Surakarta" src="assets/Surakarta.svg" alt="" style="position:absolute">
+        <img id="Kec_Jebres_img" src="assets/Kec_Jebres.svg" alt="" style="position:absolute">
+        <img id="Kec_Laweyan_img" src="assets/Kec_Laweyan.svg" alt="" style="position:absolute">
+        <img id="Kec_Banjarsari_img" src="assets/Kec_Banjarsari.svg" alt="" style="position:absolute">
+        <img id="Kec_Pasar_img" src="assets/Kec_Pasar Kliwon.svg" alt="" style="position:absolute">
+        <img id="Kec_Serengan_img" src="assets/Kec_Serengan.svg" alt=""style="position:absolute">
+        <img id="Jalan_Lokal_img" src="assets/Jalan_Lokal.svg" alt=""style="position:absolute">
+        <img id="Jalan_Kereta_Api_img" src="assets/Jalan_Kereta_Api.svg" alt=""style="position:absolute">
+        <img id="Sungai_img" src="assets/Sungai.svg" alt=""style="position:absolute">
+        <img id="Jalan_Arteri_img" src="assets/Jalan_Arteri.svg" alt=""style="position:absolute">
+        <img id="sekolahan_img" src="assets/sekolahan.svg" alt=""style="position:absolute">
+        <img id="Kantor_Pemerintah_img" src="assets/Kantor_Pemerintah.svg" alt=""style="position:absolute">
+        <img id="Perguruan_Tinggi_img" src="assets/Perguruan_Tinggi.svg" alt=""style="position:absolute">
+    </div>
+    <div style="padding-left:150px; padding-top:50px;">
+        <h3 >PETA SURAKARTA</h3>
+        <br>
+        <form>
+            <div class="checkbox">
+                <label><input id="Surakarta" type="checkbox" value="" checked disabled>Surakarta</label>
+            </div>
+            <div class="checkbox">
+                <label><input id="Kec_Jebres" type="checkbox" value="" checked>Kec_Jebres</label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="Kec_Laweyan" type="checkbox" value="" checked>Kec_Laweyan </label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="Kec_Banjarsari" type="checkbox" value="" checked>Kec_Banjarsari </label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="Kec_Pasar" type="checkbox" value="" checked>Kec_Pasar Kliwon</label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="Kec_Serengan" type="checkbox" value="" checked>Kec_Serengan </label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="Jalan_Lokal" type="checkbox" value="" checked>Jalan_Lokal </label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="Jalan_Kereta_Api" type="checkbox" value="" checked>Jalan_Kereta_Api </label>
+            </div>        
+            <div class="checkbox">
+                <label><input id="Sungai" type="checkbox" value="" checked>Sungai</label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="Jalan_Arteri" type="checkbox" value="" checked>Jalan_Arteri </label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="sekolahan" type="checkbox" value="" checked>sekolahan </label>
+            </div>
+            <div class="checkbox disabled">
+                <label><input id="Kantor_Pemerintah" type="checkbox" value="" checked>Kantor_Pemerintah </label>
+            </div>            
+            <div class="checkbox disabled">
+                <label><input id="Perguruan_Tinggi" type="checkbox" value="" checked>Perguruan_Tinggi </label>
+            </div>   
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+$(document).ready(function(){
+    console.log($("#Kec_Jebres").val()? "checked" : "not");
+    $("#Surakarta").click(function(){
+        
+        if($("#Surakarta").is(":checked")){
+            $("#Surakarta_img").show();
+        }
+        else {
+            $("#Surakarta_img").hide();
+        }
+    })
+    $("#Kec_Jebres").click(function(){
+        
+        if($("#Kec_Jebres").is(":checked")){
+            $("#Kec_Jebres_img").show();
+        }
+        else {
+            $("#Kec_Jebres_img").hide();
+        }
+    })
+
+       $("#Kec_Laweyan").click(function(){
+        
+        if($("#Kec_Laweyan").is(":checked")){
+            $("#Kec_Laweyan_img").show();
+        }
+        else {
+            $("#Kec_Laweyan_img").hide();
+        }
+    })
+    
+    $("#Kec_Banjarsari").click(function(){
+        
+        if($("#Kec_Banjarsari").is(":checked")){
+            $("#Kec_Banjarsari_img").show();
+        }
+        else {
+            $("#Kec_Banjarsari_img").hide();
+        }
+    })
+
+       $("#Kec_Pasar").click(function(){
+        
+        if($("#Kec_Pasar").is(":checked")){
+            $("#Kec_Pasar_img").show();
+        }
+        else {
+            $("#Kec_Pasar_img").hide();
+        }
+    })
+
+       $("#Kec_Serengan").click(function(){
+        
+        if($("#Kec_Serengan").is(":checked")){
+            $("#Kec_Serengan_img").show();
+        }
+        else {
+            $("#Kec_Serengan_img").hide();
+        }
+    })
+
+       $("#Jalan_Lokal").click(function(){
+        
+        if($("#Jalan_Lokal").is(":checked")){
+            $("#Jalan_Lokal_img").show();
+        }
+        else {
+            $("#Jalan_Lokal_img").hide();
+        }
+    })
+
+       $("#Jalan_Kereta_Api").click(function(){
+        
+        if($("#Jalan_Kereta_Api").is(":checked")){
+            $("#Jalan_Kereta_Api_img").show();
+        }
+        else {
+            $("#Jalan_Kereta_Api_img").hide();
+        }
+    })
+
+       $("#Sungai").click(function(){
+        
+        if($("#Sungai").is(":checked")){
+            $("#Sungai_img").show();
+        }
+        else {
+            $("#Sungai_img").hide();
+        }
+    })
+
+       $("#Jalan_Arteri").click(function(){
+        
+        if($("#Jalan_Arteri").is(":checked")){
+            $("#Jalan_Arteri_img").show();
+        }
+        else {
+            $("#Jalan_Arteri_img").hide();
+        }
+    })
+
+       $("#sekolahan").click(function(){
+        
+        if($("#sekolahan").is(":checked")){
+            $("#sekolahan_img").show();
+        }
+        else {
+            $("#sekolahan_img").hide();
+        }
+    })
+
+       $("#Kantor_Pemerintah").click(function(){
+        
+        if($("#Kantor_Pemerintah").is(":checked")){
+            $("#Kantor_Pemerintah_img").show();
+        }
+        else {
+            $("#Kantor_Pemerintah_img").hide();
+        }
+    })
+
+       $("#Perguruan_Tinggi").click(function(){
+        
+        if($("#Perguruan_Tinggi").is(":checked")){
+            $("#Perguruan_Tinggi_img").show();
+        }
+        else {
+            $("#Perguruan_Tinggi_img").hide();
+        }
+    })
+})
+
+</script>

@@ -20,7 +20,7 @@
         crossorigin="" />
         <link rel="stylesheet" href="{{ asset('css/leaflet-search.css') }}" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+        <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
         <style>
 		.search-input {
 			font-family: Courier
@@ -43,14 +43,14 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <select class="form-control" id="opsi1" name="opsi1">
-                            <option value="null">--Semua Pilihan--</option>
+                            <option value="0">--Semua Pilihan--</option>
                             <option value="kedalaman">Kedalaman</option>
                             <option value="kekuatan">Kekuatan Gempa</option>
                         </select>
                     </div>
                     <div class="col">
                         <select class="form-control" id="opsi2" name="opsi2">
-                            <option value="null">--Semua Angka--</option>
+                            <option value="0">--Semua Angka--</option>
                             <option value="1">< 5</option>
                             <option value="2">> 5</option>
                             <option value="3">> 10</option>
@@ -83,9 +83,12 @@
         var popup = L.popup();  
         var root = '{{ url("/") }}';
         var apiRoot = root + '/api/feature';
+        var polygon;
 
         $('#searchbtn').click(function(){
             console.log('click');
+            markersLayer.clearLayers();
+            map.removeLayer(polygon);
             loadGempa($('#opsi1').val(),$('#opsi2').val());
         })
 
@@ -115,15 +118,86 @@
                 })
             map.addControl(searchMap);
             map.on('click', onMapClick);
-            loadGempa();
+            // loadGempa();
+            // var states = [{
+            //     "type": "Feature",
+            //     "properties": {"party": "Republican"},
+            //     "geometry": {
+            //         "type": "Polygon",
+            //         "coordinates": [[
+            //             [48.99,-104.05],
+            //             [48.98,-97.22],   
+            //             [45.94,-96.58],
+            //             [45.94,-104.03],
+            //             [48.99,-104.05]
+            //         ]]
+            //     }
+            // }];
+            
+            // polygon = L.polygon(states[0].geometry.coordinates).addTo(map);
+            var dataJabar = [];
+            var dataSurakarta = [];
+
+            $.getJSON('other/jawa_barat.json').then(function (responses){
+                //  console.log(responses);
+                        $.each(responses.geometries[0].coordinates, function (i, val) {
+                            $.each(val[i], function (i, val){
+                                dataJabar.push([val[1],val[0]]);
+                            })
+                        })
+             }).then(()=>{
+                polygon = L.polygon(dataJabar).addTo(map);
+                loadGempaInside();
+             });
+
+             $.getJSON('other/surakarta.json').then(function (responses){
+                //  console.log(responses);
+                        $.each(responses.geometries[0].coordinates, function (i, val) {
+                            $.each(val[i], function (i, val){
+                                dataSurakarta.push([val[1],val[0]]);
+                            })
+                        })
+             }).then(()=>{
+                // console.log(data);
+                polygonSurakarta = L.polygon(dataSurakarta).addTo(map);
+                // loadGempa();
+             });
+         
+          
+                // var m1 = L.marker([51.515, -0.07]); // Outside and north of polygon
+                // markersLayer.addLayer(m1);
+                // var m2 = L.marker([51.506, -0.06]); // In polygon, not on border
+                // markersLayer.addLayer(m2);
+                // var m3 = L.marker([51.506232, -0.070295]); // Inside polygon boundary box but outside of polygon. 
+                // markersLayer.addLayer(m3);
+                // var m4 = L.marker([51.51, -0.067]); // On polygon border.
+                // markersLayer.addLayer(m4);
+
+                // console.log(polygon.contains(m1.getLatLng()));
+                // // ==> false
+                // console.log(polygon.contains(m2.getLatLng()));
+                // // ==> true
+                // console.log(polygon.contains(m3.getLatLng()));
+                // // ==> false
+                // console.log(polygon.contains(m4.getLatLng()));
+                // // ==> true
         }
 
           function onMapClick(e) {
-            popup
-            .setLatLng(e.latlng)
-            .setContent("location: " + e.latlng.toString())
-            .openOn(map);
-            map.setView(e.latlng);
+              if(polygon.contains(e.latlng)){
+                popup
+                .setLatLng(e.latlng)
+                .setContent("location: " + e.latlng.toString()+ ", jawa barat")
+                .openOn(map);
+                map.setView(e.latlng);
+              }
+              else{
+                popup
+                .setLatLng(e.latlng)
+                .setContent("location: " + e.latlng.toString())
+                .openOn(map);
+                map.setView(e.latlng);
+              }
             // document.getElementById('locLattitude').value =e.latlng.lat;
             // document.getElementById('locLongitude').value =e.latlng.lng;
         }
@@ -132,9 +206,45 @@
             return $.getJSON(apiRoot + '/gempa');
         }
 
+        function loadGempaInside(){
+            getJSONGempa().then(function (responses){
+                        $.each(responses, function (i, val) {
+                            let lat = val.lat;
+                            let lng = val.lng;
+                            let kedalaman = val.Kedalaman;
+                            let magnitude = val.Magnitude;
+                            let audio_link = val.Audio_Link;
+                            let video_link = val.Video_Link;
+                            // var mark = L.marker([lat, lng]);
+                            // console.log(mark.getLatLng());
+                            if(polygon.contains({'lat':lat,'lng':lng})){
+                                var marker = new L.Marker(new L.latLng([lat,  lng]), {icon: redIcon}).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                    'dengan kekuatan gempa '+magnitude + ' SR');
+                                                    markersLayer.addLayer(marker);
+                            }
+                            else{
+                                var marker = new L.Marker(new L.latLng([lat,  lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                    'dengan kekuatan gempa '+magnitude + ' SR');
+                                                    markersLayer.addLayer(marker);
+                            }
 
-            function loadGempa($opsi1=null, opsi2=null){
-                console.log(opsi1.value+" "+opsi2);
+                        })
+                        markersLayer.addTo(map);
+                })
+        }
+
+        var redIcon = new L.Icon({
+                            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                            popupAnchor: [1, -34],
+                            shadowSize: [41, 41]
+                            });
+
+
+            function loadGempa(opsi1=0, opsi2=0){
+                console.log(opsi1+" "+opsi2);
                 markersLayer.clearLayers();
                 getJSONGempa().then(function (responses){
                         $.each(responses, function (i, val) {
@@ -144,8 +254,8 @@
                             let magnitude = val.Magnitude;
                             let audio_link = val.Audio_Link;
                             let video_link = val.Video_Link;
-                            if(opsi1.value!=null && opsi2!=null){
-                                if(opsi1.value=="kedalaman"){
+                            if(opsi1!=0 && opsi2!=0){
+                                if(opsi1=="kedalaman"){
                                     if(opsi2==1){
                                         if(kedalaman<5){
                                             var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
@@ -168,7 +278,7 @@
                                         }
                                     }
                                 }
-                                else if(opsi1.value=="kekuatan"){
+                                else if(opsi1=="kekuatan"){
                                     if(opsi2==1){
                                         if(magnitude<5){
                                             var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+

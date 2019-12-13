@@ -482,10 +482,9 @@
 
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded',function(){
-	// Activate tooltip
+
 	$('[data-toggle="tooltip"]').tooltip();
 	
-	// Select/Deselect checkboxes
 	var checkbox = $('table tbody input[type="checkbox"]');
     var options = [];
 	$("#selectAll").click(function(){

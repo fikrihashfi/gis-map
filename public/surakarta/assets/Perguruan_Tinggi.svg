@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Creator: Esri ArcMap 10.5.0.6491 -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="610.49764pt" height="428.25827pt" viewBox="0 0 610.49764 428.25827" enable-background="new 0 0 610.49764 428.25827"
+	version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+	<g id="Layers">
+		<g id="Perguruan_Tinggi">
+			<clipPath id="SVG_CP_1">
+				<path d="M0,428.25827L0,0L610.48202,0L610.48202,428.25827L0,428.25827z"/>
+			</clipPath>
+			<g font-family="'ESRI Crime Analysis'" font-size="1" kerning="0" font-weight="400" fill="#FF0000" clip-path="url(#SVG_CP_1)" >
+				<text text-anchor="start" transform="matrix(17.9977 0 0 18.00443 522.1733 219.41398)" >
+					<tspan direction="ltr" unicode-bidi="embed" x="0 ">k</tspan>
+				</text>
+			</g>
+			<g font-family="'ESRI Crime Analysis'" font-size="1" kerning="0" font-weight="400" fill="#FF0000" clip-path="url(#SVG_CP_1)" >
+				<text text-anchor="start" transform="matrix(17.9977 0 0 18.00443 497.21649 210.05167)" >
+					<tspan direction="ltr" unicode-bidi="embed" x="0 ">k</tspan>
+				</text>
+			</g>
+		</g>
+		<g id="Labels">
+			<g id="Perguruan_Tinggi_-_Default">
+				<g font-family="'Arial'" font-size="1" kerning="0" font-weight="400" fill="#000000" clip-path="url(#SVG_CP_1)" >
+					<text text-anchor="start" transform="matrix(7.91899 0 0 7.92195 505.13548 200.45095)" >
+						<tspan direction="ltr" unicode-bidi="embed" x="0 ">I</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="0.27283 ">S</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="0.93975 ">I</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="1.4854 ">S</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="2.18263 ">u</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="2.72829 ">r</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="3.06175 ">a</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="3.63772 ">k</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="4.12275 ">a</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="4.69873 ">r</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="5.03218 ">t</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="5.30501 ">a</tspan>
+					</text>
+				</g>
+				<g font-family="'Arial'" font-size="1" kerning="0" font-weight="400" fill="#000000" clip-path="url(#SVG_CP_1)" >
+					<text text-anchor="start" transform="matrix(7.91899 0 0 7.92195 517.13394 209.81326)" >
+						<tspan direction="ltr" unicode-bidi="embed" x="0 ">U</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="0.72755 ">n</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="1.2732 ">i</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="1.4854 ">v</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="2.00075 ">e</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="2.57672 ">r</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="2.91018 ">s</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="3.39521 ">i</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="3.63772 ">t</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="3.91055 ">a</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="4.45621 ">s</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="5.24438 ">S</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="5.9113 ">e</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="6.48727 ">b</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="7.03293 ">e</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="7.6089 ">l</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="7.82111 ">a</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="8.39708 ">s</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="9.18525 ">M</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="10.00374 ">a</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="10.57971 ">r</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="10.91317 ">e</tspan>
+						<tspan direction="ltr" unicode-bidi="embed" x="11.48914 ">t</tspan>
+					</text>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

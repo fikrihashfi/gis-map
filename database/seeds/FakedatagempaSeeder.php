@@ -17,7 +17,7 @@ class FakedatagempaSeeder extends Seeder
  
     	for($i = 1; $i <= 50; $i++){
             DB::table('gis_maps')->insert([
-                'Lintang' => $faker->randomFloat($nbMaxDecimals = NULL, $min = -0.5, $max = -3),
+                'Lintang' => $faker->randomFloat($nbMaxDecimals = NULL, $min = -6.4, $max = -8),
                 'Bujur' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 100, $max = 133),
                 'Kedalaman' => $faker->numberBetween(0,50),
                 'Magnitude' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 15),
