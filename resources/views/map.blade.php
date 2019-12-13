@@ -218,13 +218,17 @@
                             // var mark = L.marker([lat, lng]);
                             // console.log(mark.getLatLng());
                             if(polygon.contains({'lat':lat,'lng':lng})){
-                                var marker = new L.Marker(new L.latLng([lat,  lng]), {icon: redIcon}).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                    'dengan kekuatan gempa '+magnitude + ' SR');
+                                var marker = new L.Marker(new L.latLng([lat,  lng]), {icon: redIcon}).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                     markersLayer.addLayer(marker);
                             }
                             else{
-                                var marker = new L.Marker(new L.latLng([lat,  lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                    'dengan kekuatan gempa '+magnitude + ' SR');
+                                var marker = new L.Marker(new L.latLng([lat,  lng])).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                     markersLayer.addLayer(marker);
                             }
 
@@ -258,22 +262,28 @@
                                 if(opsi1=="kedalaman"){
                                     if(opsi2==1){
                                         if(kedalaman<5){
-                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                         markersLayer.addLayer(marker);
                                         }
                                     }
                                     else if(opsi2==2){
                                         if(kedalaman>5){
-                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                         markersLayer.addLayer(marker);
                                         }
                                     }
                                     else if(opsi2==3){
                                         if(kedalaman>10){
-                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                         markersLayer.addLayer(marker);
                                         }
                                     }
@@ -281,30 +291,38 @@
                                 else if(opsi1=="kekuatan"){
                                     if(opsi2==1){
                                         if(magnitude<5){
-                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                         markersLayer.addLayer(marker);
                                         }
                                     }
                                     else if(opsi2==2){
                                         if(magnitude>5){
-                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                         markersLayer.addLayer(marker);
                                         }
                                     }
                                     else if(opsi2==3){
                                         if(magnitude>10){
-                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                        'dengan kekuatan gempa '+magnitude + ' SR');
+                                            var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                         markersLayer.addLayer(marker);
                                         }
                                     }
                                 }
                             }
                             else{
-                                var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Titik gempa (latitude:'+lat+', longitude:'+lng+').gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
-                                                    'dengan kekuatan gempa '+magnitude + ' SR');
+                                var marker = new L.Marker(new L.latLng([lat, lng])).bindPopup('Gempa terjadi di kedalaman '+kedalaman+' kilometer dan '+
+                                                'dengan kekuatan gempa '+magnitude+ ' SR.\n'+
+                                                '<audio controls><source src="'+audio_link+'" type="audio/mpeg"></audio>'+
+                                                '<iframe width="100%" height="175" src="'+video_link+'" allowfullscreen></iframe>');
                                                     markersLayer.addLayer(marker);
                             }
                             markersLayer.addTo(map);
